@@ -1,12 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-  </head>
-  <body>
-    <img src="/images/users.jpg" alt="Imagem da view <%= title %>" width="auto" height="120">
-    <h1><%= title %></h1>
-    <p><%= message %></p>
-  </body>
-</html>
+<%- include('./partials/head.ejs') %>
+<%- include('./partials/header.ejs') %>
+
+<main>
+  <img src="/images/users.jpg" alt="Imagem da view <%= title %>" width="auto" height="120">
+  <h1><%= title %></h1>
+  <p><%= message %></p>
+  <section class="users">
+
+    <%  for(let user of users) { %>
+
+    <article id="userCard<%= user.id %>" class="user-card">
+      <img src="<%= user.avatar %>" alt="Avatar do usuário <%= user.nome %>" class="user-avatar">
+      <h3 class="user-name"><%= user.nome %> <%= user.sobrenome %></h3>
+      <a href="#" class="user-btn">Ver detalhes</a>
+    </article>
+
+    <% } %>
+
+  </section>
+</main>
+
+<%- include('./partials/footer.ejs') %>
