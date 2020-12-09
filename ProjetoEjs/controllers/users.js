@@ -39,20 +39,20 @@ const controller = {
     id: null
   }),
   edit: (req, res, next) => res.render('users', {
-    title: `Editar Usuário ${usersPlacehoder[req.params.id].nome} ${usersPlacehoder[req.params.id].sobrenome}`,
-    message: `Editar os Dados do Usuário #${req.params.id} - ${usersPlacehoder[req.params.id].nome}`,
+    title: `Editar Usuário ${usersPlaceholder[req.params.id].nome} ${usersPlaceholder[req.params.id].sobrenome}`,
+    message: `Editar os Dados do Usuário #${req.params.id} - ${usersPlaceholder[req.params.id].nome}`,
     users: usersPlaceholder,
     id: req.params.id
   }),
   delete: (req, res, next) => res.render('users', {
-    title: `Excluir Usuário ${usersPlacehoder[req.params.id].nome} ${usersPlacehoder[req.params.id].sobrenome}`,
-    message: `Excluir os Dados do Usuário #${req.params.id} - ${usersPlacehoder[req.params.id].nome}`,
+    title: `Excluir Usuário ${usersPlaceholder[req.params.id].nome} ${usersPlaceholder[req.params.id].sobrenome}`,
+    message: `Excluir os Dados do Usuário #${req.params.id} - ${usersPlaceholder[req.params.id].nome}`,
     users: usersPlaceholder,
     id: req.params.id
   }),
   show: (req, res, next) => res.render('users', {
-    title: `Usuário ${usersPlacehoder[req.params.id].nome} ${usersPlacehoder[req.params.id].sobrenome}`,
-    message: `Exibindo os Dados do Usuário #${req.params.id} - ${usersPlacehoder[req.params.id].nome}`,
+    title: `Usuário ${usersPlaceholder[req.params.id].nome} ${usersPlaceholder[req.params.id].sobrenome}`,
+    message: `Exibindo os Dados do Usuário #${req.params.id} - ${usersPlaceholder[req.params.id].nome}`,
     users: usersPlaceholder,
     id: req.params.id
   })

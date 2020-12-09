@@ -5,9 +5,22 @@
   <img src="/images/users.jpg" alt="Imagem da view <%= title %>" width="auto" height="120">
   <h1><%= title %></h1>
   <p><%= message %></p>
-  <section class="users">
 
-    <%  for(let user of users) { %>
+  <% if(users && id) { %>
+  <section class="users">
+    <% let user = users.filter(user => user.id == id) %>
+
+    <article id="userCard<%= user[0].id %>" class="user-card">
+      <img src="<%= user[0].avatar %>" alt="Avatar do usuário <%= user[0].nome %>" class="user-avatar">
+      <h3 class="user-name"><%= user[0].nome %> <%= user[0].sobrenome %></h3>
+      <a href="#" class="user-btn">Ver detalhes</a>
+    </article>
+  </section>
+  <% } %>
+
+  <% if(users) { %>
+  <section class="users">
+    <% for(let user of users) { %>
 
     <article id="userCard<%= user.id %>" class="user-card">
       <img src="<%= user.avatar %>" alt="Avatar do usuário <%= user.nome %>" class="user-avatar">
@@ -16,8 +29,9 @@
     </article>
 
     <% } %>
-
   </section>
+  <% } %>
+
 </main>
 
 <%- include('./partials/footer.ejs') %>
