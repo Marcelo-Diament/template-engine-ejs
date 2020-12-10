@@ -1,0 +1,11 @@
+<section class="users">
+
+  <% let user = users.filter(user => user.id == id) %>
+  <article id="userCard<%= user[0].id %>" class="user-card">
+    <img src="<%= user[0].avatar %>" alt="Avatar do usuário <%= user[0].nome %>" class="user-avatar">
+    <h3 class="user-name"><%= user[0].nome %> <%= user[0].sobrenome %></h3>
+    <a href="/users/edit/<%= user[0].id %>" class="user-btn">Editar</a>
+    <a href="/users/delete/<%= user[0].id %>" class="user-btn">Excluir</a>
+  </article>
+
+</section>

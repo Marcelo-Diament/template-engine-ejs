@@ -1,0 +1,13 @@
+<section class="users">
+
+  <% for(let user of users) { %>
+
+  <article id="userCard<%= user.id %>" class="user-card">
+    <img src="<%= user.avatar %>" alt="Avatar do usuário <%= user.nome %>" class="user-avatar">
+    <h3 class="user-name"><%= user.nome %> <%= user.sobrenome %></h3>
+    <a href="/users/<%= user.id %>" class="user-btn">Ver detalhes</a>
+  </article>
+
+  <% } %>
+
+</section>
