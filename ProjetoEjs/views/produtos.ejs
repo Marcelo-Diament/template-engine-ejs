@@ -1,0 +1,18 @@
+<%- include('./partials/head') %>
+<%- include('./partials/header') %>
+
+<main>
+  <%- include('./partials/cabecalho') %>
+
+  <% if(produtos && id) { %>
+    <%- include('./partials/detalhes-produto') %>
+  <% } %>
+
+  <% if(produtos) { %>
+    <%- include('./partials/lista-produtos') %>
+  <% } %>
+
+
+</main>
+
+<%- include('./partials/footer') %>
