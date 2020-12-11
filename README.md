@@ -422,3 +422,140 @@ const controller = {
 
 module.exports = controller
 ```
+
+**./App/views/users.ejs**
+
+Aqui estamos:
+
+* Renderizando _strings_ a partir do objeto enviado (como _`title`_) | `<%= ... %>`
+
+* Incluindo trechos de códigos (_head_, _header_, _footer_, _detalhes-usuario_ e _lista-usuarios_) | `<%- include('...') %>`
+
+* Includindo lógica (condicional) para incluirmos ou não determinados trechos | `<% ... %>`
+
+```ejs
+<%- include('./partials/head.ejs') %>
+<%- include('./partials/header.ejs') %>
+
+<main>
+
+  <h1><%= title %></h1>
+  <p><%= message %></p>
+
+  <% if (users && id) { %>
+  <%- include('./partials/detalhe-usuario') %>
+  <% } %>
+
+  <% if (users) { %>
+  <%- include('./partials/lista-usuarios') %>
+  <% } %>
+
+</main>
+
+<%- include('./partials/footer.ejs') %>
+```
+
+**./App/views/partials/lista-usuarios.ejs**
+
+Novamente estamos usando lógica dentro dessa _view_ parcial.
+
+```ejs
+<section class="users">
+
+  <% for(let user of users) { %>
+
+  <article id="userCard<%= user.id %>" class="user-card">
+    <img src="<%= user.avatar %>" alt="Avatar do usuário <%= user.nome %>" class="user-avatar">
+    <h3 class="user-name"><%= user.nome %> <%= user.sobrenome %></h3>
+    <a href="/users/<%= user.id %>" class="user-btn">Ver Detalhes</a>
+  </article>
+
+  <% } %>
+
+</section>
+```
+
+**./App/views/partials/detalhe-usuario.ejs**
+
+E nesse arquivo utilizamos um `filter()` para filtrarmos um usuário específico a partir do ID.
+
+**Repare!** Veja o caminho percorrido pelo ID, da rota, para o _controller_ e para a _view_ (`req.params.id` > `{id: req.params.id}` > `user.id`).
+
+```ejs
+<% let user = users.filter(user => user.id == id) %>
+
+<section class="users">
+
+  <article id="userCard<%= user[0].id %>" class="user-card">
+    <img src="<%= user[0].avatar %>" alt="Avatar do usuário <%= user[0].nome %>" class="user-avatar">
+    <h3 class="user-name"><%= user[0].nome %> <%= user[0].sobrenome %></h3>
+    <div class="user-btn-group">
+      <a href="/users/edit/<%= user[0].id %>" class="user-btn">Editar</a>
+      <a href="/users/delete/<%= user[0].id %>" class="user-btn">Excluir</a>
+    </div>
+  </article>
+
+</section>
+```
+
+___
+
+## DESAFIO II
+
+**PARTE I**
+
+Incluir links para 'Usuários' e 'Produtos' no `header` da nossa aplicação.
+
+**PARTE II**
+
+Vamos replicar toda a lógica aplicada em usuários para **produtos**. No caso, iremos considerar a seguinte estrutura para um produto:
+
+```js
+{
+  "id": 0,
+  "titulo": "Título do Produto",
+  "marca": "Marca do Produto",
+  "preco": 999.99,
+  "imagem": "/images/imagem-do-produto.png",
+  "categoria": "Categoria do Produto"
+}
+```
+
+**PARTE III**
+
+Agora vamos adicionar mais um método ao _controller_ de produtos: **`filter`**.
+
+Nesse caso não vamos - ainda - criar um objeto de categorias e torná-las dinâmicas nem relacioná-las com os produtos através de seus IDs. Faremos algo mais simples.
+
+A ideia é que tenhamos um link no _header_ para cada uma das categorias que criar no JSON de produtos.
+
+Ao clicar no link, o usuário é direcionado para uma listagem de produtos que pertençam àquela categoria específica (método `filter` a ser criado nessa parte do desafio).
+
+**Dicas**
+
+* A rota para filtrar produtos por categoria será `/categoria/:categoria`.
+
+* Podemos passar o nome 'legível' no parâmetro `:categoria` da rota (ex.: 'Móveis e Decoração').
+
+* Precisaremos filtrar de alguma maneira o _array_ que contém todos os produtos para gerarmos um _array_ que contenha apenas os produtos da categoria.
+
+* Segue uma função de apoio para 'limparmos' a string e podermos realizar esse tratamento:
+
+```js
+const formattedString = string => string
+  .replace(/á|ä|â|à|ã/gi,'a')
+  .replace(/é|ë|ê|è/gi,'e')
+  .replace(/í|ï|î|ì/gi,'i')
+  .replace(/ó|ö|ô|ò|õ/gi,'o')
+  .replace(/ú|ü|û|ù/gi,'u')
+  .replace(/ç/gi,'c')
+  .replace(/ /gi,'-')
+  .toLowerCase()
+```
+
+
+**PARTE IV**
+
+Aplique um estilo ao nosso projeto (pode ser algo básico, a ideia é apenas conferir certa identidade à nossa aplicação).
+
+Para conferir as respostas do desafio, basta acessar a _branch_ 'DESAFIO' (a _branch_ será mergeada à `main` ao final da prática). =)
